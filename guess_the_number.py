@@ -1,25 +1,18 @@
-import numpy as np
-count = 0
-gap = 48
-number = np.random.randint(1,100)    # загадали число
-print ("Загадано число от 1 до 99")
+def game_core_v3(number):
+  count = 0
+  predict = np.random.randint(1,100)
+  left = 1
+  right = 100
 
-while True:                        # бесконечный цикл
-    predict = int(input())         # предполагаемое число
-    count = count + 1
-    gap = gap * 0.5
-    if number == predict: break    # выход из цикла, если угадали
-    elif number > predict:
-        predict = predict + gap
-        if number > predict:
-          print (f"Угадываемое число больше {predict} ")
-        else:
-          print (f"Угадываемое число больше {predict-gap}, но меньше {predict} ")  
-    elif number < predict:
-        predict = predict - gap
-        if number < predict:
-          print (f"Угадываемое число меньше {predict} ")
-        else:
-          print (f"Угадываемое число больше {predict}, но меньше {predict+gap} ")  
+  while left <= right:
+    count += 1
+    mid = (left + right) // 2
+    if predict == mid:
+      break
+    if predict < mid:
+      right = mid
+    else:
+      left = mid
+  return count
         
-print (f"Вы угадали число {number} за {count} попыток.")
+print (f"Ваш алгоритм угадывает число в среднем за {count} попыток.")
